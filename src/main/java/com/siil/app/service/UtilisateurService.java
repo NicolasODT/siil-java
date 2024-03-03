@@ -57,8 +57,14 @@ public class UtilisateurService {
 
 
 
-    public boolean verifyLogin(String email, String password) {
+    public Optional<Utilisateur> verifyLogin(String email, String password) {
         Optional<Utilisateur> utilisateur = utilisateurRepository.findByEmail(email);
-        return utilisateur.isPresent();
+        if(utilisateur.isPresent() && utilisateur.get().getPassword().equals(password)) {
+            return utilisateur;
+        } else {
+            return Optional.empty();
+        }
     }
+
+
 }
