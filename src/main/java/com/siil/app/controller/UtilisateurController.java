@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.siil.app.model.LoginResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -63,14 +64,25 @@ public class UtilisateurController {
     @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
-        boolean loginSuccess = utilisateurService.verifyLogin(loginRequest.getEmail(), loginRequest.getPassword());
-        
-        if (loginSuccess) {
-            return ResponseEntity.ok().body("Login réussi.");
+        Optional<Utilisateur> utilisateurOpt = utilisateurService.verifyLogin(loginRequest.getEmail(), loginRequest.getPassword());
+
+        if (utilisateurOpt.isPresent()) {
+            Utilisateur utilisateur = utilisateurOpt.get();
+            LoginResponse response = new LoginResponse();
+            response.setMessage("Login réussi.");
+            response.setUserId(utilisateur.getId());
+            response.setNom(utilisateur.getNom());
+            response.setPrenom(utilisateur.getPrenom());
+            response.setEmail(utilisateur.getEmail());
+            response.setRole(utilisateur.getRole());
+            return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Échec de l'authentification.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"error\": \"Échec de l'authentification.\"}");
         }
     }
+
+
+
     @PostMapping("/register")
     public Utilisateur createUtilisateur1(@RequestBody Utilisateur utilisateur) {
         return utilisateurService.saveUtilisateur(utilisateur);

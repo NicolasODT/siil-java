@@ -46,7 +46,9 @@ public class UtilisateurService {
         utilisateur.setNom(utilisateurDetails.getNom());
         utilisateur.setEmail(utilisateurDetails.getEmail());
         // Nous ne modifions pas le mot de passe ou nous le faisons sans le chiffrer
-        utilisateur.setPassword(utilisateurDetails.getPassword());
+        if (utilisateurDetails.getPassword() != null && !utilisateurDetails.getPassword().isEmpty()) {
+            utilisateur.setPassword(utilisateurDetails.getPassword()); // Ici, le mot de passe devrait être chiffré
+        }
         utilisateur.setRole(utilisateurDetails.getRole());
         utilisateurRepository.save(utilisateur);
         return Optional.of(utilisateur); // Retourner l'utilisateur mis à jour
