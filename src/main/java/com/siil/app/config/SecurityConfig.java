@@ -39,7 +39,7 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((authz) -> authz
 
-				.requestMatchers("/api/utilisateurs/**").permitAll().requestMatchers("/api/admin/**").hasRole("ADMIN")
+				.requestMatchers("/api/utilisateurs/**").permitAll().requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN") 
 				.anyRequest().authenticated()).httpBasic(Customizer.withDefaults()).csrf(csrf -> csrf.disable())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
