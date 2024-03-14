@@ -3,6 +3,7 @@ package com.siil.app.service;
 import com.siil.app.model.Utilisateur;
 import com.siil.app.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,9 @@ public class UtilisateurService {
 
     @Autowired
     private UtilisateurRepository utilisateurRepository;
-
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<Utilisateur> getAllUtilisateurs() {
         return utilisateurRepository.findAll();
@@ -24,6 +27,8 @@ public class UtilisateurService {
     }
 
     public Utilisateur saveUtilisateur(Utilisateur utilisateur) {
+        String hashedPassword = passwordEncoder.encode(utilisateur.getPassword());
+        utilisateur.setPassword(hashedPassword);
         return utilisateurRepository.save(utilisateur);
     }
 
@@ -39,32 +44,30 @@ public class UtilisateurService {
     public Optional<Utilisateur> updateUtilisateur(Long id, Utilisateur utilisateurDetails) {
         Optional<Utilisateur> utilisateurExistant = utilisateurRepository.findById(id);
         if (!utilisateurExistant.isPresent()) {
-            // Journaliser l'erreur ou lancer une exception personnalisée
             return Optional.empty();
         }
         Utilisateur utilisateur = utilisateurExistant.get();
         utilisateur.setNom(utilisateurDetails.getNom());
-        utilisateur.setEmail(utilisateurDetails.getEmail());
         utilisateur.setPrenom(utilisateurDetails.getPrenom());
-        if (utilisateurDetails.getPassword() != null && !utilisateurDetails.getPassword().isEmpty()) {
-            utilisateur.setPassword(utilisateurDetails.getPassword());
-        }
+        utilisateur.setEmail(utilisateurDetails.getEmail());
         utilisateur.setRole(utilisateurDetails.getRole());
+
+        // Hasher le mot de passe si fourni
+        if (utilisateurDetails.getPassword() != null && !utilisateurDetails.getPassword().isEmpty()) {
+            String hashedPassword = passwordEncoder.encode(utilisateurDetails.getPassword());
+            utilisateur.setPassword(hashedPassword);
+        }
+        
         utilisateurRepository.save(utilisateur);
         return Optional.of(utilisateur);
     }
 
-
-
-
-    public Optional<Utilisateur> verifyLogin(String email, String password) {
+    public Optional<Utilisateur> verifyLogin(String email, String rawPassword) {
         Optional<Utilisateur> utilisateur = utilisateurRepository.findByEmail(email);
-        if(utilisateur.isPresent() && utilisateur.get().getPassword().equals(password)) {
+        if (utilisateur.isPresent() && passwordEncoder.matches(rawPassword, utilisateur.get().getPassword())) {
             return utilisateur;
         } else {
             return Optional.empty();
         }
     }
-
-
 }
