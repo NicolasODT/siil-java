@@ -35,6 +35,8 @@ public class JwtAuthenticationController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) {
+        log.info("Attempting to authenticate user: {}", authenticationRequest.getUsername());
+
         try {
             // Tente d'authentifier l'utilisateur avec les informations fournies
             Authentication authenticate = authenticationManager.authenticate(
@@ -46,6 +48,7 @@ public class JwtAuthenticationController {
 
             // Récupère les détails de l'utilisateur authentifié
             CustomUserDetails customUserDetails = (CustomUserDetails) authenticate.getPrincipal();
+            log.info("User authenticated successfully: {}", authenticationRequest.getUsername());
 
             // Génère le JWT à partir des détails de l'utilisateur
             final String jwt = jwtTokenUtil.generateToken(customUserDetails);
@@ -56,6 +59,8 @@ public class JwtAuthenticationController {
             // Logge l'erreur si l'authentification échoue
             log.error("Erreur d'authentification pour l'utilisateur : {}", authenticationRequest.getUsername(), e);
             // Renvoie une réponse avec un statut 401 Unauthorized
+            log.error("Authentication failed for user: {}", authenticationRequest.getUsername(), e);
+
             return ResponseEntity.status(401).body("Échec de l'authentification");
         }
     }

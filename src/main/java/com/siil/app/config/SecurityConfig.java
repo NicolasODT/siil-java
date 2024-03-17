@@ -18,6 +18,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jakarta.servlet.Filter;
 
 @Configuration
@@ -29,14 +32,16 @@ public class SecurityConfig {
     public SecurityConfig(JwtRequestFilter jwtRequestFilter) {
         this.jwtRequestFilter = jwtRequestFilter;
     }
-    
-    
+	private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
+
+
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		log.info("Configuring HttpSecurity");
 		http.authorizeHttpRequests((authz) -> authz
 
 				.requestMatchers("/api/utilisateurs/**").permitAll().requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN") 
