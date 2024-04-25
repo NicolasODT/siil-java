@@ -1,0 +1,169 @@
+@startuml
+
+
+top to bottom direction
+skinparam linetype ortho
+
+class CustomUserDetails {
+  + CustomUserDetails(): 
+  - nom: String
+  - id: Long
+  - username: String
+  - authorities: Collection<GrantedAuthority>
+  - prenom: String
+  - password: String
+  - role: String
+  - email: String
+   enabled: boolean
+   accountNonLocked: boolean
+   id: Long
+   authorities: Collection<GrantedAuthority>
+   nom: String
+   role: String
+   serialversionuid: long
+   password: String
+   email: String
+   prenom: String
+   username: String
+   credentialsNonExpired: boolean
+   accountNonExpired: boolean
+}
+class CustomUserDetailsService {
+  + CustomUserDetailsService(UtilisateurRepository): 
+  + loadUserByUsername(String): UserDetails
+}
+class ImageController {
+  + ImageController(): 
+  + uploadImage(MultipartFile): ResponseEntity<?>
+}
+class JwtAuthenticationController {
+  + JwtAuthenticationController(): 
+  + createAuthenticationToken(JwtRequest): ResponseEntity<?>
+}
+class JwtRequest {
+  + JwtRequest(String, String): 
+  + JwtRequest(): 
+  - username: String
+  - password: String
+   password: String
+   username: String
+}
+class JwtRequestFilter {
+  + JwtRequestFilter(): 
+  # doFilterInternal(HttpServletRequest, HttpServletResponse, FilterChain): void
+  - isRoleAllowed(String, HttpServletRequest): boolean
+}
+class JwtResponse {
+  + JwtResponse(String): 
+  - jwtToken: String
+   jwtToken: String
+}
+class JwtUtil {
+  + JwtUtil(): 
+  + extractAllClaims(String): Claims
+  + validateToken(String, UserDetails): Boolean
+  + generateToken(CustomUserDetails): String
+  + extractClaim(String, Function<Claims, T>): T
+  + extractRole(String): String
+  - isTokenExpired(String): Boolean
+  + extractUsername(String): String
+  + extractExpiration(String): Date
+}
+class LoginRequest {
+  + LoginRequest(): 
+  - email: String
+  - password: String
+   email: String
+   password: String
+}
+class LoginResponse {
+  + LoginResponse(): 
+  - nom: String
+  - email: String
+  - prenom: String
+  - message: String
+  - role: Role
+  - userId: Long
+   userId: Long
+   nom: String
+   role: Role
+   email: String
+   message: String
+   prenom: String
+}
+class PasswordConfig {
+  + PasswordConfig(): 
+  + passwordEncoder(): PasswordEncoder
+}
+enum Role << enumeration >> {
+  + Role(): 
+  + values(): Role[]
+  + valueOf(String): Role
+   authorities: Set<GrantedAuthority>
+}
+class SecurityConfig {
+  + SecurityConfig(JwtRequestFilter): 
+  + authenticationManagerBean(AuthenticationConfiguration): AuthenticationManager
+  + filterChain(HttpSecurity): SecurityFilterChain
+}
+class SiilApplication {
+  + SiilApplication(): 
+  + main(String[]): void
+}
+class Utilisateur {
+  + Utilisateur(): 
+  - prenom: String
+  - role: Role
+  - id: Long
+  - email: String
+  - password: String
+  - nom: String
+   nom: String
+   password: String
+   role: Role
+   id: Long
+   email: String
+   prenom: String
+}
+class UtilisateurController {
+  + UtilisateurController(): 
+  + getUtilisateurById(Long): ResponseEntity<Utilisateur>
+  + createUtilisateur(Utilisateur): Utilisateur
+  + createUtilisateur1(Utilisateur): Utilisateur
+  + deleteUtilisateur(Long): ResponseEntity<?>
+  + loginUser(LoginRequest): ResponseEntity<?>
+  + updateUtilisateur(Long, Utilisateur): ResponseEntity<Utilisateur>
+   allUtilisateurs: List<Utilisateur>
+}
+interface UtilisateurRepository << interface >> {
+  + findByEmail(String): Optional<Utilisateur>
+  + findByNomContaining(String): List<Utilisateur>
+  + findByNom(String): List<Utilisateur>
+  + findByRole(Role): List<Utilisateur>
+}
+class UtilisateurService {
+  + UtilisateurService(): 
+  + deleteUtilisateur(Long): boolean
+  + updateUtilisateur(Long, Utilisateur): Optional<Utilisateur>
+  + saveUtilisateur(Utilisateur): Utilisateur
+  + getUtilisateurById(Long): Optional<Utilisateur>
+  + verifyLogin(String, String): Optional<Utilisateur>
+   allUtilisateurs: List<Utilisateur>
+}
+class WebConfig {
+  + WebConfig(): 
+  + corsConfigurer(): WebMvcConfigurer
+}
+
+CustomUserDetailsService     -[#595959,dashed]->  CustomUserDetails           : "«create»"
+CustomUserDetailsService    "1" *-[#595959,plain]-> "utilisateurRepository\n1" UtilisateurRepository       
+JwtAuthenticationController "1" *-[#595959,plain]-> "userDetailsService\n1" CustomUserDetailsService    
+JwtAuthenticationController  -[#595959,dashed]->  JwtResponse                 : "«create»"
+JwtAuthenticationController "1" *-[#595959,plain]-> "jwtTokenUtil\n1" JwtUtil                     
+JwtRequestFilter            "1" *-[#595959,plain]-> "jwtUtil\n1" JwtUtil                     
+LoginResponse               "1" *-[#595959,plain]-> "role\n1" Role                        
+SecurityConfig              "1" *-[#595959,plain]-> "jwtRequestFilter\n1" JwtRequestFilter            
+Utilisateur                 "1" *-[#595959,plain]-> "role\n1" Role                        
+UtilisateurController        -[#595959,dashed]->  LoginResponse               : "«create»"
+UtilisateurController       "1" *-[#595959,plain]-> "utilisateurService\n1" UtilisateurService          
+@enduml

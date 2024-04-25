@@ -1,0 +1,30 @@
+@startuml SIIL_Reporting_and_Monitoring_Use_Case
+
+left to right direction
+skinparam packageStyle rectangle
+actor "Utilisateur" as U
+actor "Administrateur" as A
+
+package "Reporting et Suivi" {
+    usecase "Générer Rapports de Gestion" as GenerateReports
+    usecase "Visualiser Tableau de Bord des Opérations" as ViewDashboard
+    usecase "Suivre Livraisons en Temps Réel" as TrackDeliveries
+    usecase "Sélectionner Période pour Rapport" as SelectPeriod
+    usecase "Sélectionner Données pour Rapport" as SelectData
+    usecase "Accéder à l'Historique des Livraisons" as AccessDeliveryHistory
+    usecase "Recevoir Notifications de Livraison" as ReceiveNotifications
+
+    A -- GenerateReports
+    A -- ViewDashboard
+    A -- TrackDeliveries
+    U -- ViewDashboard
+    U -- TrackDeliveries
+
+    GenerateReports --> SelectPeriod : <<include>>
+    GenerateReports --> SelectData : <<include>>
+    GenerateReports <.. ViewDashboard : <<extend>>
+    TrackDeliveries <.. AccessDeliveryHistory : <<include>>
+    TrackDeliveries --> ReceiveNotifications : <<include>>
+}
+
+@enduml

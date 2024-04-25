@@ -1,0 +1,83 @@
+@startuml SIIL_Reporting_and_Monitoring_Sequence
+
+actor "Administrateur" as A
+activate A #pink
+actor "Utilisateur" as U
+entity "Interface de Reporting" as ReportingUI
+control "Système de Reporting" as ReportingSystem
+database "Base de Données" as DB
+
+== Génération de Rapports de Gestion ==
+A -> ReportingUI : Sélectionner "Générer Rapports de Gestion"
+activate ReportingUI #LightBlue
+
+ReportingUI --> A : Demander Période et Type de Données
+A -> ReportingUI : Fournir Période et Sélection de Données
+ReportingUI -> ReportingSystem : Créer Requête de Rapport
+activate ReportingSystem #LightGreen
+
+ReportingSystem -> DB : Récupérer Données
+activate DB #Yellow
+
+DB --> ReportingSystem : Envoyer Données
+deactivate DB
+
+ReportingSystem --> ReportingUI : Générer Rapport
+deactivate ReportingSystem
+
+ReportingUI --> A : Présenter Rapport
+deactivate ReportingUI
+
+== Visualisation du Tableau de Bord des Opérations ==
+group Administrateur
+    A -> ReportingUI : Sélectionner "Tableau de Bord des Opérations"
+    activate ReportingUI #LightBlue
+end
+
+group Utilisateur
+    U -> ReportingUI : Sélectionner "Tableau de Bord des Opérations"
+    activate U #pink
+
+end
+
+ReportingUI -> ReportingSystem : Demander Données du Tableau de Bord
+
+activate ReportingSystem #LightGreen
+
+ReportingSystem -> DB : Récupérer Données de Suivi
+activate DB #Yellow
+
+DB --> ReportingSystem : Envoyer Données de Suivi
+deactivate DB
+
+ReportingSystem --> ReportingUI : Afficher Données sur Tableau de Bord
+deactivate ReportingSystem
+
+ReportingUI --> A : Présenter Tableau de Bord
+ReportingUI --> U : Présenter Tableau de Bord
+deactivate ReportingUI
+
+== Suivi des Livraisons en Temps Réel ==
+A -> ReportingUI : Sélectionner "Suivi des Livraisons"
+activate ReportingUI #LightBlue
+
+U -> ReportingUI : Sélectionner "Suivi des Livraisons"
+
+
+ReportingUI -> ReportingSystem : Demander Statut des Livraisons
+activate ReportingSystem #LightGreen
+
+ReportingSystem -> DB : Récupérer Statut des Livraisons
+activate DB #Yellow
+
+DB --> ReportingSystem : Envoyer Statut des Livraisons
+deactivate DB
+
+ReportingSystem --> ReportingUI : Afficher Statut sur Carte
+deactivate ReportingSystem
+
+ReportingUI --> A : Présenter Suivi en Temps Réel
+ReportingUI --> U : Présenter Suivi en Temps Réel
+deactivate ReportingUI
+
+@enduml

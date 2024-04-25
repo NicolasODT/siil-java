@@ -1,0 +1,24 @@
+@startuml SIIL_Vegetable_Data_Management_Use_Case_Final
+
+left to right direction
+skinparam packageStyle rectangle
+actor "Utilisateur" as U
+actor "Administrateur" as A
+
+package "Gestion des Données de Légumes" {
+    usecase "Visualiser Analyses Personnelles" as ViewPersonalAnalysis
+    usecase "Consulter Historique Complet" as ViewFullHistory
+    usecase "Exporter Données" as ExportData
+    usecase "Supprimer Données" as DeleteData
+    usecase "Archiver Analyses" as ArchiveAnalysis
+
+    U -- ViewPersonalAnalysis
+
+    A -- ViewFullHistory
+    A -- ExportData
+    A -- DeleteData
+    A -- ArchiveAnalysis
+    A -- ViewPersonalAnalysis
+}
+
+@enduml

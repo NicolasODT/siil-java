@@ -1,0 +1,29 @@
+@startuml SIIL_Authentication_Use_Case_Final
+
+left to right direction
+skinparam packageStyle rectangle
+actor Utilisateur as user
+
+package "Système d'Authentification" {
+    usecase "Saisir Identifiant" as EnterID
+    usecase "Saisir Mot de Passe" as EnterPW
+    usecase "Valider Identifiants" as ValidateCreds
+    usecase "Afficher Message d'Erreur" as ShowError
+    usecase "Accéder à l'Espace Personnel" as AccessPersonalSpace
+    usecase "Demander Réinitialisation Mot de Passe" as RequestResetPW
+    usecase "Confirmer Email pour Réinitialisation" as ConfirmEmail
+    usecase "Modifier Mot de Passe" as ChangePW
+
+    user -- EnterID
+    user -- EnterPW
+    EnterID --> ValidateCreds : <<include>>
+    EnterPW --> ValidateCreds : <<include>>
+    ValidateCreds <.. AccessPersonalSpace : <<extend>>
+    ValidateCreds .right.> ShowError : <<extend>>
+    EnterID <.. RequestResetPW : <<extend>>
+    EnterPW <.. RequestResetPW : <<extend>>
+    RequestResetPW --> ConfirmEmail : <<include>>
+    ConfirmEmail --> ChangePW : <<include>>
+}
+
+@enduml

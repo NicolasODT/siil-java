@@ -1,0 +1,49 @@
+@startuml SIIL_Vegetable_Image_Analysis_Sequence_Corrected
+
+actor Utilisateur as U
+activate U #pink
+entity "Interface Utilisateur" as UI
+control "Serveur Analyse" as AnalysisServer
+database "Base de Données" as DB
+
+U -> UI : Téléverser des images de légumes
+activate UI #LightBlue
+
+UI -> AnalysisServer : Envoyer Images
+
+activate AnalysisServer #LightGreen
+
+alt Format Image Valide
+
+AnalysisServer --> UI : Valider Format Image
+
+    UI --> U : Validation format image
+
+
+
+
+    AnalysisServer -> AnalysisServer : Identifier les Variétés de Légumes
+
+
+    AnalysisServer -> AnalysisServer : Quantifier les Légumes
+    AnalysisServer -> DB : Sauvegarder les Résultats d'Analyse
+    activate DB #Yellow
+
+    DB --> AnalysisServer : Confirmer Sauvegarde
+    deactivate DB
+
+    AnalysisServer --> UI : Afficher Confirmation Sauvegarde
+
+
+    UI --> U : Afficher les Résultats d'Analyse
+else Format Image Invalide
+    AnalysisServer -> UI : Afficher Erreur Format Image
+
+    deactivate AnalysisServer
+
+    UI --> U : Demander Nouveau Téléversement
+end
+
+deactivate UI
+
+@enduml

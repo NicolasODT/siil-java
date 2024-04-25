@@ -1,0 +1,124 @@
+@startuml SIIL_User_Management_Sequence
+
+actor "Utilisateur" as U
+activate U #pink
+actor "Administrateur" as A
+
+entity "Interface Utilisateur" as UI
+control "Système de Gestion des Utilisateurs" as UserManager
+database "Base de Données" as DB
+
+== Consultation et Modification du Profil par l'Utilisateur ==
+U -> UI : Choix de consulter le profil
+activate UI #LightBlue
+
+UI -> UserManager : Demande d'accès au profil utilisateur
+activate UserManager #LightGreen
+
+UserManager -> DB : Requête profil utilisateur
+activate DB #Yellow
+
+DB --> UserManager : Retourne les informations de profil
+deactivate DB
+
+UserManager --> UI : Affiche les informations de profil
+deactivate UserManager
+
+UI --> U : Montre le profil
+deactivate UI
+
+U -> UI : Choix de modifier le profil
+activate UI #LightBlue
+
+UI -> UserManager : Demande de mise à jour du profil
+activate UserManager #LightGreen
+
+UserManager -> DB : Met à jour le profil utilisateur
+activate DB #Yellow
+
+DB --> UserManager : Confirme la mise à jour
+deactivate DB
+
+UserManager --> UI : Confirme la mise à jour au utilisateur
+deactivate UserManager
+
+UI --> U : Montre confirmation
+Deactivate U
+deactivate UI
+
+== Gestion des Utilisateurs par l'Administrateur ==
+A -> UI : Choix de créer un nouvel utilisateur
+activate A #pink
+activate UI #LightBlue
+
+UI -> UserManager : Demande de création de nouveau profil
+activate UserManager #LightGreen
+
+UserManager -> DB : Crée nouveau profil utilisateur
+activate DB #Yellow
+
+DB --> UserManager : Confirme la création
+deactivate DB
+
+UserManager --> UI : Affiche confirmation de création
+deactivate UserManager
+
+UI --> A : Montre la confirmation
+deactivate UI
+
+A -> UI : Choix de consulter la liste des utilisateurs
+
+activate UI #LightBlue
+
+UI -> UserManager : Demande de liste des utilisateurs
+activate UserManager #LightGreen
+
+UserManager -> DB : Requête de tous les profils utilisateurs
+activate DB #Yellow
+
+DB --> UserManager : Retourne la liste des utilisateurs
+deactivate DB
+
+UserManager --> UI : Affiche la liste des utilisateurs
+deactivate UserManager
+
+UI --> A : Montre la liste
+deactivate UI
+
+A -> UI : Choix de modifier un utilisateur
+activate UI #LightBlue
+
+UI -> UserManager : Demande de mise à jour d'un profil spécifique
+activate UserManager #LightGreen
+
+UserManager -> DB : Met à jour le profil choisi
+activate DB #Yellow
+
+DB --> UserManager : Confirme la mise à jour
+deactivate DB
+
+UserManager --> UI : Confirme la mise à jour à l'administrateur
+deactivate UserManager
+
+UI --> A : Montre confirmation
+deactivate UI
+
+A -> UI : Choix de supprimer un utilisateur
+activate UI #LightBlue
+
+UI -> UserManager : Demande de suppression d'un profil utilisateur
+activate UserManager #LightGreen
+
+UserManager -> DB : Supprime le profil choisi
+activate DB #Yellow
+
+DB --> UserManager : Confirme la suppression
+deactivate DB
+
+UserManager --> UI : Confirme la suppression à l'administrateur
+deactivate UserManager
+
+UI --> A : Montre confirmation
+deactivate UI
+
+@enduml

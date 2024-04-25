@@ -1,0 +1,21 @@
+@startuml SIIL_Vegetable_Image_Analysis_Use_Case
+
+left to right direction
+skinparam packageStyle rectangle
+actor "Utilisateur" as U
+
+package "Identification et Analyse d'Images de Légumes" {
+    usecase "Téléverser des Images de Légumes" as UploadImages
+    usecase "Identifier les Variétés de Légumes" as IdentifyVeg
+    usecase "Quantifier les Légumes" as QuantifyVeg
+    usecase "Sauvegarder les Résultats d'Analyse" as SaveResults
+    usecase "Visualiser les Résultats" as ViewResults
+
+    U -- UploadImages
+    UploadImages <.. IdentifyVeg : <<extend>>
+    IdentifyVeg --> QuantifyVeg : <<include>>
+    QuantifyVeg --> SaveResults : <<include>>
+    QuantifyVeg --> ViewResults : <<include>>
+}
+
+@enduml

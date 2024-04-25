@@ -1,0 +1,73 @@
+@startuml SIIL_Vegetable_Data_Management_Sequence
+
+actor Utilisateur as U
+actor Administrateur as A
+entity "Interface Utilisateur" as UI
+control "Serveur de Données" as DataServer
+database "Base de Données" as DB
+
+== Visualisation des Analyses Personnelles par l'Utilisateur ==
+U -> UI : Choisir de visualiser les analyses personnelles
+activate U #pink
+activate UI #LightBlue
+
+UI -> DataServer : Demande d'accès aux analyses personnelles
+activate DataServer #LightGreen
+
+DataServer -> DB : Requête pour analyses personnelles
+activate DB #Yellow
+
+DB --> DataServer : Retour des analyses
+deactivate DB
+
+DataServer --> UI : Afficher les analyses personnelles
+deactivate DataServer
+
+UI --> U : Présentation des résultats
+Deactivate U
+deactivate UI
+
+== Actions d'Administration ==
+A -> UI : Choisir d'effectuer des actions d'administration
+activate A #pink
+activate UI #LightBlue
+
+UI -> DataServer : Demande de visualisation de l'historique complet/Exportation/Suppression/Archivage
+activate DataServer #LightGreen
+
+DataServer -> DB : Requête pour historique complet/Exportation/Suppression/Archivage
+activate DB #Yellow
+
+alt Exportation des Données
+    DB --> DataServer : Préparer données à exporter
+
+
+    DataServer --> UI : Acces téléchargement
+    deactivate DataServer
+
+    UI --> A : Télécharger données
+else Suppression des Données
+    DB --> DataServer : Confirmer suppression
+
+    activate DataServer #LightGreen
+
+    DataServer --> UI : Confirmer action
+    deactivate DataServer
+
+    UI --> A : Afficher confirmation
+
+else Archivage des Analyses
+    DB --> DataServer : Confirmer archivage
+    deactivate DB
+    activate DataServer #LightGreen
+
+    DataServer --> UI : Confirmer action
+    deactivate DataServer
+
+    UI --> A : Afficher confirmation
+
+       Deactivate A
+end
+deactivate UI
+
+@enduml

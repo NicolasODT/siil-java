@@ -1,0 +1,27 @@
+@startuml SIIL_Deployment_Diagram_Updated
+
+package "Serveur d'Application" {
+  [Serveur Web] as WebServer
+  [Serveur d'Application et d'Analyse d'Image] as AppImageServer
+  database "Base de Données Principale" as MainDB {
+    folder "Tables Utilisateurs" as UserTables
+    folder "Tables Livraison" as DeliveryTables
+    folder "Tables Image" as ImageTables
+    folder "Tables Localisation" as LocationTables
+    folder "Tables Legume" as VegTables
+    folder "Tables DetectionLegume" as DetectionVegTables
+    folder "Tables DetailAnalyse" as DetailAnalysisTables
+  }
+
+  WebServer -down-> AppImageServer : <<TCP/IP>>
+  AppImageServer -down-> MainDB : <<JDBC>>
+}
+
+package "Dispositifs Client" {
+  [Application Web] as WebClient
+  [Application Mobile] as MobileClient
+  WebClient .right.> WebServer : <<HTTP/HTTPS>>
+  MobileClient .right.> AppImageServer : <<HTTP/HTTPS>>
+}
+
+@enduml

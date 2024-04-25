@@ -1,0 +1,91 @@
+@startuml SIIL_Authentication_Sequence_Diagram
+
+actor Utilisateur as U
+activate U #pink
+entity "Interface Utilisateur" as UI
+control "Serveur" as S
+database "Base de Données" as DB
+
+U -> UI : Entrer Identifiant et Mot de Passe
+activate UI #LightBlue
+
+
+UI -> S : Envoyer Identifiants et Mot de Passe
+deactivate UI
+activate S #LightGreen
+
+
+S -> DB : Vérifier Identifiants et Mot de Passe
+deactivate S
+activate DB #Yellow
+
+
+
+alt Identifiants Validés
+    DB --> S : Confirmer Authentification
+    deactivate DB
+    activate S #LightGreen
+
+
+    S --> UI : Accéder à l'Espace Personnel
+    deactivate S
+    activate UI #LightBlue
+
+    UI --> U : Afficher Espace Personnel
+    deactivate UI
+else Identifiants Non Validés
+    DB --> S : Refuser Authentification
+    activate S #LightGreen
+    activate DB #Yellow
+    deactivate DB
+    S --> UI : Afficher Message d'Erreur
+        deactivate S
+    activate UI #LightBlue
+
+    UI --> U : Afficher Message d'Erreur
+    deactivate UI
+end
+
+deactivate UI
+
+alt Oubli des Identifiants
+    U -> UI : Demander Réinitialisation du Mot de Passe
+    activate UI #LightBlue
+    UI -> S : Envoyer Demande de Réinitialisation
+    deactivate UI
+    activate S #LightGreen
+    S -> DB : Vérifier Adresse Email
+    deactivate S
+    activate DB #Yellow
+    DB --> S : Adresse Email Confirmée
+    deactivate DB
+    activate S #LightGreen
+    S --> UI : Envoyer Email de Réinitialisation
+    deactivate S
+    activate UI #LightBlue
+    UI --> U : Indiquer Email Envoyé
+    deactivate UI
+    U -> UI : Confirmer Réception de l'Email
+    activate UI #LightBlue
+    UI -> S : Modifier Mot de Passe
+     deactivate UI
+    activate S #LightGreen
+
+    S -> DB : Enregistrer Nouveau Mot de Passe
+    deactivate S
+    activate DB #Yellow
+    DB --> S : Confirmation Changement de Mot de Passe
+    deactivate DB
+    activate S #LightGreen
+
+    S --> UI : Confirmer Changement de Mot de Passe
+        deactivate S
+        activate UI #LightBlue
+
+    UI --> U : Afficher Confirmation
+    deactivate UI
+end
+
+deactivate UI
+
+@enduml

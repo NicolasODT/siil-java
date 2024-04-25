@@ -1,4 +1,4 @@
-package com.siil.app.model;
+package com.siil.app.controller;
 
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
