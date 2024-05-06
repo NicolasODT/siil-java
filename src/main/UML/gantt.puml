@@ -1,8 +1,4 @@
-
 @startgantt
-Project starts the 2023-12-01
-saturday are closed
-sunday are closed
 Project starts the 2023-12-01
 
 ' Phase d'avant-projet
@@ -30,20 +26,18 @@ Project starts the 2023-12-01
 [Services Spring Boot] as [ServicesSpring] starts at [SecuritySpring]'s end and lasts 15 days
 [Base de données MySQL] as [MySQLDB] starts at [ServicesSpring]'s end and lasts 15 days
 [Tests Spring Boot] as [TestsSpring] starts at [MySQLDB]'s end and lasts 20 days
-[Optimisation Spring Boot] as [OptimSpring] starts at [TestsSpring]'s end and lasts 15 days
-[Préparation à la production Spring Boot] as [PreProdSpring] starts at [OptimSpring]'s end and lasts 15 days
+[Optimisation Spring Boot] as [OptimSpring] starts at [TestsSpring]'s end and lasts  15 days
+[Préparation à la production Spring Boot] as [PreProdSpring] starts at [OptimSpring]'s end and lasts  15 days
 
 ' Phase de développement Android Studio
-[Setup Android Studio] as [SetupAndroid] starts at [OptimAng]'s end and lasts 10 days
-[Login et Authentification] as [LoginAuthAndroid] starts at [SetupAndroid]'s end and lasts 15 days
-[Prise de photo et Upload] as [PhotoUploadAndroid] starts at [LoginAuthAndroid]'s end and lasts 20 days
-[Communication avec le serveur] as [ServerCommAndroid] starts at [PhotoUploadAndroid]'s end and lasts 20 days
-[Tests Android Studio] as [TestsAndroid] starts at [ServerCommAndroid]'s end and lasts 20 days
-[Optimisation Android] as [OptimAndroid] starts at [TestsAndroid]'s end and lasts 15 days
-[Préparation au lancement Android] as [LaunchPrepAndroid] starts at [OptimAndroid]'s end and lasts 15 days
+[Setup Android Studio] as [SetupAndroid] starts at [OptimAng]'s end and lasts  10 days
+[Login et Authentification] as [LoginAuthAndroid] starts at [SetupAndroid]'s end and lasts  15 days
+[Prise de photo et Upload] as [PhotoUploadAndroid] starts at [LoginAuthAndroid]'s end and lasts  20 days
+[Communication avec le serveur] as [ServerCommAndroid] starts at [PhotoUploadAndroid]'s end and lasts  20 days
+[Tests Android Studio] as [TestsAndroid] starts at [ServerCommAndroid]'s end and lasts  20 days
+[Optimisation Android] as [OptimAndroid] starts at [TestsAndroid]'s end and lasts  15 days
+[Préparation au lancement Android] as [LaunchPrepAndroid] starts at [OptimAndroid]'s end and lasts  15 days
 
 ' Finalisation
-[Finalisation et révision du projet] as [FinalRev] starts at [PreProdSpring]'s end and lasts 20 days
-[Préparation au lancement] as [LaunchPrep] starts at [FinalRev]'s end and lasts 15 days
-[Clôture du projet] as [ProjectClose] starts at [LaunchPrep]'s end and lasts 10 days
+[Finalisation et révision du projet] as [FinalRev] starts at [PreProdSpring]'s end and lasts  20 days
 @endgantt

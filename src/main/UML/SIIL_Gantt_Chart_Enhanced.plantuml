@@ -13,7 +13,7 @@ Project starts the 2023-12-01
 [SetupAng] starts at [Architect]'s end and lasts 10 days
 [BaseCompAng] starts at [SetupAng]'s end and lasts 20 days
 [RoutingAng] starts at [BaseCompAng]'s end and lasts 15 days
-[ServicesAng] starts at [RoutingAng]'s end and lasts 15 days
+[ServicesAng] starts at [RotingAng]'s end and lasts 15 days
 [AuthAng] starts at [ServicesAng]'s end and lasts 15 days
 [UnitTestAng] starts at [AuthAng]'s end and lasts 20 days
 [OptimAng] starts at [UnitTestAng]'s end and lasts 15 days
