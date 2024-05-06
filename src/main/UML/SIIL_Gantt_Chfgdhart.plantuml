@@ -1,0 +1,50 @@
+
+@startgantt
+Project starts the 2023-12-01
+scale weekly
+saturday are closed
+sunday are closed
+Project starts the 2023-12-01
+
+' Phase d'avant-projet
+[Poser le contexte du projet] as [Contexte] starts 2023-12-01 and lasts 7 days
+[Réaliser le Kanban] as [Kanban] starts at [Contexte]'s end and lasts 7 days
+[Établissement du SMART] as [SMART] starts at [Kanban]'s end and lasts 7 days
+[Réalisation du SWOT] as [SWOT] starts at [SMART]'s end and lasts 7 days
+[Charte graphique] as [CharteGraph] starts at [SWOT]'s end and lasts 7 days
+[Logo] as [Logo] starts at [CharteGraph]'s end and lasts 5 days
+[Architecture] as [Architect] starts at [Logo]'s end and lasts 10 days
+
+' Phase de développement Angular
+[Setup Angular] as [SetupAng] starts at [Architect]'s end and lasts 10 days
+[Composants de base Angular] as [BaseCompAng] starts at [SetupAng]'s end and lasts 20 days
+[Routing Angular] as [RoutingAng] starts at [BaseCompAng]'s end and lasts 15 days
+[Services Angular] as [ServicesAng] starts at [RoutingAng]'s end and lasts 15 days
+[Authentification Angular] as [AuthAng] starts at [ServicesAng]'s end and lasts 15 days
+[Tests unitaires Angular] as [UnitTestAng] starts at [AuthAng]'s end and lasts 20 days
+[Optimisation Angular] as [OptimAng] starts at [UnitTestAng]'s end and lasts 15 days
+
+' Phase de développement Spring Boot
+[Setup Spring Boot] as [SetupSpring] starts at [SetupAng]'s end and lasts 15 days
+[Controllers Spring Boot] as [ControllersSpring] starts at [SetupSpring]'s end and lasts 20 days
+[Sécurité Spring Boot] as [SecuritySpring] starts at [ControllersSpring]'s end and lasts 15 days
+[Services Spring Boot] as [ServicesSpring] starts at [SecuritySpring]'s end and lasts 15 days
+[Base de données MySQL] as [MySQLDB] starts at [ServicesSpring]'s end and lasts 15 days
+[Tests Spring Boot] as [TestsSpring] starts at [MySQLDB]'s end and lasts 20 days
+[Optimisation Spring Boot] as [OptimSpring] starts at [TestsSpring]'s end and lasts 15 days
+[Préparation à la production Spring Boot] as [PreProdSpring] starts at [OptimSpring]'s end and lasts 15 days
+
+' Phase de développement Android Studio
+[Setup Android Studio] as [SetupAndroid] starts at [OptimAng]'s end and lasts 10 days
+[Login et Authentification] as [LoginAuthAndroid] starts at [SetupAndroid]'s end and lasts 15 days
+[Prise de photo et Upload] as [PhotoUploadAndroid] starts at [LoginAuthAndroid]'s end and lasts 20 days
+[Communication avec le serveur] as [ServerCommAndroid] starts at [PhotoUploadAndroid]'s end and lasts 20 days
+[Tests Android Studio] as [TestsAndroid] starts at [ServerCommAndroid]'s end and lasts 20 days
+[Optimisation Android] as [OptimAndroid] starts at [TestsAndroid]'s end and lasts 15 days
+[Préparation au lancement Android] as [LaunchPrepAndroid] starts at [OptimAndroid]'s end and lasts 15 days
+
+' Finalisation
+[Finalisation et révision du projet] as [FinalRev] starts at [PreProdSpring]'s end and lasts 20 days
+[Préparation au lancement] as [LaunchPrep] starts at [FinalRev]'s end and lasts 15 days
+[Clôture du projet] as [ProjectClose] starts at [LaunchPrep]'s end and lasts 10 days
+@endgantt

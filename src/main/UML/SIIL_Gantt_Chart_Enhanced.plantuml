@@ -1,0 +1,42 @@
+
+@startgantt
+Project starts the 2023-12-01
+
+[Poser le contexte du projet] as [Contexte] starts 2023-12-01 and lasts 7 days
+[Kanban] starts at [Contexte]'s end and lasts 7 days
+[SMART] starts at [Kanban]'s end and lasts 7 days
+[SWOT] starts at [SMART]'s end and lasts 7 days
+[CharteGraph] starts at [SWOT]'s end and lasts 7 days
+[Logo] starts at [CharteGraph]'s end and lasts 5 days
+[Architect] starts at [Logo]'s end and lasts 10 days
+
+[SetupAng] starts at [Architect]'s end and lasts 10 days
+[BaseCompAng] starts at [SetupAng]'s end and lasts 20 days
+[RoutingAng] starts at [BaseCompAng]'s end and lasts 15 days
+[ServicesAng] starts at [RoutingAng]'s end and lasts 15 days
+[AuthAng] starts at [ServicesAng]'s end and lasts 15 days
+[UnitTestAng] starts at [AuthAng]'s end and lasts 20 days
+[OptimAng] starts at [UnitTestAng]'s end and lasts 15 days
+
+[SetupSpring] starts at [OptimAng]'s end and lasts 15 days
+[ControllersSpring] starts at [SetupSpring]'s end and lasts 20 days
+[SecuritySpring] starts at [ControllersSpring]'s end and lasts 15 days
+[ServicesSpring] starts at [SecuritySpring]'s end and lasts 15 days
+[MySQLDB] starts at [ServicesSpring]'s end and lasts 15 days
+[TestsSpring] starts at [MySQLDB]'s end and lasts 20 days
+[OptimSpring] starts at [TestsSpring]'s end and lasts 15 days
+[PreProdSpring] starts at [OptimSpring]'s end and lasts 15 days
+
+[SetupAndroid] starts at [PreProdSpring]'s end and lasts 10 days
+[LoginAuthAndroid] starts at [SetupAndroid]'s end and lasts 15 days
+[PhotoUploadAndroid] starts at [LoginAuthAndroid]'s end and lasts 20 days
+[ServerCommAndroid] starts at [PhotoUploadAndroid]'s end and lasts 20 days
+[TestsAndroid] starts at [ServerCommAndroid]'s end and lasts 20 days
+[OptimAndroid] starts at [TestsAndroid]'s end and lasts 15 days
+[LaunchPrepAndroid] starts at [OptimAndroid]'s end and lasts 15 days
+
+[FinalRev] starts at [PreProdSpring]'s end and lasts 20 days
+[LaunchPrep] starts at [FinalRev]'s end and lasts 15 days
+[ProjectClose] starts at [LaunchPrep]'s end and lasts 10 days
+
+@endgantt
